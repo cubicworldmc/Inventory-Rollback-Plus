@@ -51,6 +51,7 @@ death-location:
   x: '&6X: &f%X%'
   y: '&6Y: &f%Y%'
   z: '&6Z: &f%Z%'
+  ping: '&6 ping: &f%ms%'
   reason: '&6Death reason: &f%REASON%'
   time: '&6Time: &f%TIME%'
   teleport-to: '&3Teleport to where this entry was logged.'

@@ -35,6 +35,8 @@ public class YAML {
     private String enderChest;
     private float xp;
     private double health;
+
+    private int ping;
     private int hunger;
     private float saturation;
     private String world;
@@ -234,6 +236,10 @@ public class YAML {
         this.health = health;
     }
 
+    public void setPing(int ping){
+        this.ping = ping;
+    }
+
     public void setFoodLevel(int foodLevel) {
         this.hunger = foodLevel;
     }
@@ -291,6 +297,10 @@ public class YAML {
 
     public double getHealth() {
         return data.getDouble("health");
+    }
+
+    public int getPing(){
+        return data.getInt("ping");
     }
 
     public int getFoodLevel() {
@@ -352,6 +362,7 @@ public class YAML {
         data.set("logType", logType.name());
         data.set("version", packageVersion);
         data.set("deathReason", deathReason);
+        data.set("ping", ping);
 
         try {
             data.save(backupFile);
@@ -424,6 +435,7 @@ public class YAML {
                         yaml.setEnderChest(RestoreInventory.getInventoryItems(packageVersion, data.getString("data." + timestamp + ".enderchest")));                    
                         yaml.setXP(Float.parseFloat(data.getString("data." + timestamp + ".xp")));
                         yaml.setHealth(data.getDouble("data." + timestamp + ".health"));
+                        yaml.setPing(data.getInt("data." + timestamp + ".ping"));
                         yaml.setFoodLevel(data.getInt("data." + timestamp + ".hunger"));
                         yaml.setSaturation(Float.parseFloat(data.getString("data." + timestamp + ".saturation")));
                         yaml.setWorld(data.getString("data." + timestamp + ".location.world"));

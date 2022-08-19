@@ -1,15 +1,14 @@
 package me.danjono.inventoryrollback.config;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-
+import me.danjono.inventoryrollback.InventoryRollback;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import me.danjono.inventoryrollback.InventoryRollback;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
 
 public class MessageData {
 
@@ -23,7 +22,7 @@ public class MessageData {
 
     private void generateMessagesFile() {
         getMessagesFile();
-        if(!messagesFile.exists()) {
+        if (!messagesFile.exists()) {
             InventoryRollback.getInstance().saveResource(configurationFileName, false);
             getMessagesFile();
         }
@@ -113,6 +112,8 @@ public class MessageData {
     private static String deathLocationX;
     private static String deathLocationY;
     private static String deathLocationZ;
+
+    private static String deathPing;
     private static String deathReason;
     private static String deathTime;
     private static String deathLocationTeleportTo;
@@ -183,6 +184,7 @@ public class MessageData {
         setDeathLocationX(convertColorCodes((String) getDefaultValue("death-location.x", "&6X: &f%X%")));
         setDeathLocationY(convertColorCodes((String) getDefaultValue("death-location.y", "&6Y: &f%Y%")));
         setDeathLocationZ(convertColorCodes((String) getDefaultValue("death-location.z", "&6Z: &f%Z%")));
+        setDeathPing(convertColorCodes((String) getDefaultValue("death-ping", "&6ping: &f%PING%")));
         setDeathReason(convertColorCodes((String) getDefaultValue("death-location.reason", "&6Death reason: &f%REASON%")));
         setDeathTime(convertColorCodes((String) getDefaultValue("death-location.time", "&6Time: &f%TIME%")));
         setDeathLocation(convertColorCodes((String) getDefaultValue("death-location.teleport-to", "&3Teleport to where this entry was logged.")));
@@ -269,7 +271,7 @@ public class MessageData {
     public static void setMainInventoryNotOnline(String message) {
         mainInventoryNotOnline = message;
     }
-    
+
     public static void setMainInventoryButton(String message) {
         mainInventoryButton = message;
     }
@@ -289,7 +291,7 @@ public class MessageData {
     public static void setEnderChestNotOnline(String message) {
         enderChestNotOnline = message;
     }
-    
+
     public static void setEnderChestButton(String message) {
         enderChestButton = message;
     }
@@ -305,7 +307,7 @@ public class MessageData {
     public static void setHealthNotOnline(String message) {
         healthNotOnline = message;
     }
-    
+
     public static void setHealthButton(String message) {
         healthButton = message;
     }
@@ -321,7 +323,7 @@ public class MessageData {
     public static void setHungerNotOnline(String message) {
         hungerNotOnline = message;
     }
-    
+
     public static void setHungerButton(String message) {
         hungerButton = message;
     }
@@ -337,7 +339,7 @@ public class MessageData {
     public static void setExperienceNotOnlinePlayer(String message) {
         experienceNotOnline = message;
     }
-    
+
     public static void setExperienceButton(String message) {
         experienceButton = message;
     }
@@ -361,7 +363,7 @@ public class MessageData {
     public static void setDeathLocationZ(String message) {
         deathLocationZ = message;
     }
-    
+
     public static void setDeathReason(String message) {
         deathReason = message;
     }
@@ -369,11 +371,14 @@ public class MessageData {
     public static void setDeathTime(String message) {
         deathTime = message;
     }
-    
+
     public static void setDeathLocation(String message) {
         deathLocationTeleportTo = message;
     }
 
+    public static void setDeathPing(String message) {
+        deathPing = message;
+    }
 
     public static void setDeathLocationTeleport(String message) {
         deathLocationTeleport = message;
@@ -453,7 +458,7 @@ public class MessageData {
     public static String getForceBackupPlayer(String name) {
         return forceSavedPlayer.replaceAll(nameVariable, name);
     }
-    
+
     public static String getForceBackupAll() {
         return forceSavedAll;
     }
@@ -461,7 +466,7 @@ public class MessageData {
     public static String getForceBackupError(String name) {
         return notForcedSaved.replaceAll(nameVariable, name);
     }
-    
+
     public static String getMainInventoryRestored(String name) {
         return mainInventoryRestored.replaceAll(nameVariable, name);
     }
@@ -473,7 +478,7 @@ public class MessageData {
     public static String getMainInventoryNotOnline(String name) {
         return mainInventoryNotOnline.replaceAll(nameVariable, name);
     }
-    
+
     public static String getMainInventoryRestoreButton() {
         return mainInventoryButton;
     }
@@ -493,7 +498,7 @@ public class MessageData {
     public static String getEnderChestNotOnline(String name) {
         return enderChestNotOnline.replaceAll(nameVariable, name);
     }
-    
+
     public static String getEnderChestRestoreButton() {
         return enderChestButton;
     }
@@ -509,7 +514,7 @@ public class MessageData {
     public static String getHealthNotOnline(String name) {
         return healthNotOnline.replaceAll(nameVariable, name);
     }
-    
+
     public static String getHealthRestoreButton() {
         return healthButton;
     }
@@ -525,7 +530,7 @@ public class MessageData {
     public static String getHungerNotOnline(String name) {
         return hungerNotOnline.replaceAll(nameVariable, name);
     }
-    
+
     public static String getHungerRestoreButton() {
         return hungerButton;
     }
@@ -541,11 +546,11 @@ public class MessageData {
     public static String getExperienceNotOnlinePlayer(String name) {
         return experienceNotOnline.replaceAll(nameVariable, name);
     }
-    
+
     public static String getExperienceRestoreButton() {
         return experienceButton;
     }
-    
+
     public static String getExperienceRestoreLevel(int xp) {
         return experienceButtonLore.replaceAll(xpVariable, xp + "");
     }
@@ -573,13 +578,17 @@ public class MessageData {
     public static String getDeathTime(String time) {
         return deathTime.replace("%TIME%", time);
     }
-    
+
     public static String getDeathLocation() {
         return deathLocationTeleportTo;
     }
-    
+
     public static String getDeathLocationTeleport(Location location) {
         return deathLocationTeleport.replace("%LOCATION%", "X:" + (int) location.getX() + " Y:" + (int) location.getY() + " Z:" + (int) location.getZ());
+    }
+
+    public static String getPing(String ping) {
+        return deathPing.replace("%PING%", ping);
     }
 
     public static String getDeathLocationInvalidWorldError(String world) {
@@ -601,7 +610,7 @@ public class MessageData {
     public static String getBackButton() {
         return backButton;
     }
-    
+
     private static String convertColorCodes(String text) {
         return ChatColor.translateAlternateColorCodes('&', text);
     }
